@@ -46,7 +46,7 @@
       <!-- Show when user is not found -->
 
       <span v-if="token === 'null'">
-        <h1 class="display-3">You must be signed in to display Mobile Devices!</h1>
+        <h1 class="display-3">You must be signed in to display Mobile Brands!</h1>
         <br>
         <br>
         <router-link :to="'/'"> 

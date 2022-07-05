@@ -58,7 +58,7 @@
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">Index</th>
+              <th scope="col">Id</th>
               <th scope="col">Name</th>
               <th scope="col">Brand</th>
               <th scope="col">Deleted</th>
@@ -68,8 +68,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(list,index) in mobileDevice" :key="list.id">
-            <th> {{ index+1 }} </th>
+            <tr v-for="list in dataVarr" :key="list.id">
+            <th> {{ list.Id }} </th>
             <td> {{ list.Name }} </td>
             <td>
             <span v-for="brand in mobileBrands" :key="brand.id">
@@ -105,7 +105,29 @@
           </tbody>
         </table>
       </div>
-      
+
+      <!-- Pagination Buttons -->
+      <div class="d-flex align-items-center row" v-if="token !== 'null' && dataVarr.length">
+        <div class="col" style="margin-top:-2vh; margin-left:2vw;">
+          <label class="form-label fw-bold" style="float:left; margin-right:2vw; color:#fff;">Total data per page:</label>
+          <select class="form-select d-inline-block" aria-label="Default select example" style="width:20%;float:left;margin-right:10vw" v-model="pageN" v-on:change="changePage()">
+            <option value="5">5</option>
+            <option value="7">7</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+        </div>
+
+      <nav aria-label="Page navigation example" class="d-inline-block col" v-if="token !== 'null' && dataVarr.length">
+        <ul class="pagination ">
+          <li class="page-item"><button class="page-link fw-bold" :disabled="showPrevButton == false" @click="goToPrev()">Previous</button></li>
+          <li class="page-item"><button class="page-link fw-bold" :disabled="showNextButton == false" @click="goToNext()">Next</button></li>
+        </ul>
+      </nav>
+      </div>
+
 
       <!-- Show when user is not found -->
 
@@ -142,6 +164,15 @@ export default {
         mobileName: '',
         brandName: '',
         created:null,
+
+        //pagination variables
+        
+        dataVarr:[], //filtered array of mobile devices
+        page:'', //How many pages after paggination
+        showNextButton:false, //buton show
+        showPrevButton:false, //buton show
+        pageNum:1, //Start Page
+        pageN:7, //Data Per page
     }
   },
   components: {
@@ -188,12 +219,14 @@ export default {
 
         }).then(response => {
             this.mobileDevice = response.data 
-            this.mobileDevice = this.mobileDevice.slice(1,100)
+            // this.mobileDevice = this.mobileDevice.slice(1,100)
         })
         console.log('All the mobile devices = ', this.mobileDevice)
     } catch (err) {
         console.log(err)
     }
+    this.page = Math.ceil(this.mobileDevice.length/this.pageN)
+    await this.Pagination();
     },
     async takeAction(id, name, brand, created) {
         this.modalActive = true
@@ -244,7 +277,54 @@ export default {
                 console.log(err)
         } 
         await this.getMobileDevice()
-    }
+    },
+    async Pagination(){
+                console.log('paggination',this.pageNum, this.page, this.mobileDevice.length);
+                this.showNextButton= false
+                this.showPrevButton= false
+                if (this.page>1) {
+                    if (this.pageNum==1) {
+                        this.showNextButton=true
+                        this.dataVarr=[]
+
+                        for (let i = 0; i < this.pageN; i++) {
+                            this.dataVarr.push(this.mobileDevice[i])
+                        }
+                    }
+                    else if (this.pageNum==this.page) {
+                        this.showPrevButton=true
+                        this.dataVarr=[]
+
+                        for (let i = this.pageN*(this.pageNum-1); i < this.mobileDevice.length; i++) {
+                            this.dataVarr.push(this.mobileDevice[i])
+                        }
+                    }
+                    else{
+                        this.showNextButton= true
+                        this.showPrevButton= true
+                        this.dataVarr=[]
+
+                        for (let i = this.pageN*(this.pageNum-1); i < (this.pageNum*this.pageN); i++) {
+                            this.dataVarr.push(this.mobileDevice[i])
+                        }
+                    }
+                }
+                else{
+                    this.dataVarr=this.mobileDevice;
+                }
+            },
+
+          async goToPrev(){
+            this.pageNum--
+            await this.Pagination()
+          },
+          async goToNext(){
+            this.pageNum++
+            await this.Pagination()
+          },
+          async changePage(){
+            await this.Pagination()
+          }
   }
 };
 </script>
