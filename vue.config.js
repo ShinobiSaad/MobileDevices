@@ -1,4 +1,18 @@
-const { defineConfig } = require('@vue/cli-service')
-module.exports = defineConfig({
-  transpileDependencies: true
-})
+module.exports = {
+  // publicPath: '/',
+  devServer: {
+    proxy: {
+      "/api": {
+        target: "https://mobiledeviceapi.azurewebsites.net/api/",
+        pathRewrite: { '/api': '' },
+        ws:true,
+        changeOrigin: true,
+        logLevel: 'debug',
+        
+      }
+    }
+  }
+};
+
+
+
