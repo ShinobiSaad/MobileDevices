@@ -47,7 +47,7 @@ However, in Vue 3, the performance of stateful components has improved to the po
 As a result, the only remaining use case for functional components is simple components, such as a component to create a dynamic heading.
 
 ### Folder structure
-![alt text](https://github.com/[ShinobiSaad]/[MobileDevices]/blob/[main]/public/images/folder_structure.png?raw=true)
+![alt text](https://github.com/ShinobiSaad/MobileDevices/blob/main/public/images/folder_structure.png?raw=true)
 
 The src folder has following folders in order,
 
