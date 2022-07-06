@@ -58,6 +58,7 @@
    </div>
 </template>
 <script>
+import { URL_OF_API } from '../api/main-api.js'
 import axios from "axios"
 export default {
   name: "Home",
@@ -78,7 +79,7 @@ export default {
   methods: {
     async getMobileDevices() {
         try {
-        const url = '/api/'
+        const url = URL_OF_API
         await axios.get( url + 'brand', 
             { 
                 headers: {"Content-type" : "application/json"}

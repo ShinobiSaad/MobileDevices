@@ -1,4 +1,5 @@
 import { createStore } from 'vuex'
+import { URL_OF_API } from '../api/main-api.js'
 import axios from 'axios'
 
 export default createStore({
@@ -19,7 +20,7 @@ export default createStore({
     //Log in User
     loginUser( {}, user ) {
       try {
-        const url = '/api/'
+        const url = URL_OF_API
         axios.post(url+'login', {
           email: user.email,
           password: user.password

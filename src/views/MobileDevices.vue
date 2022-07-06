@@ -144,6 +144,7 @@
    </div>
 </template>
 <script>
+import { URL_OF_API } from '../api/main-api.js'
 import axios from "axios"
 import Modal from "@/components/Modal.vue";
 import { ref } from "vue";
@@ -197,7 +198,7 @@ export default {
   methods: {
     async getMobileBrands() {
         try {
-        const url = '/api/'
+        const url = URL_OF_API
         await axios.get( url + 'brand', 
             { 
                 headers: {"Content-type" : "application/json"}
@@ -212,7 +213,7 @@ export default {
     },
     async getMobileDevice() {
     try {
-    const url = '/api/'
+    const url = URL_OF_API
     await axios.get( url + 'model', 
         { 
             headers: {"Content-type" : "application/json"}
@@ -238,7 +239,7 @@ export default {
     // Updating the Data
     async updateData(){
         try {
-            const url = '/api/'
+            const url = URL_OF_API
             await axios.put( url + 'model' + `/${this.currentId}`, 
                 // { 
                 //     headers: {"Content-type" : "application/json"}
@@ -264,7 +265,7 @@ export default {
     //Deleting the data
     async deleteData(){
         try {
-            const url = '/api/'
+            const url = URL_OF_API
             await axios.delete( url + 'model' + `/${this.currentId}`, 
                 { 
                     headers: {"Content-type" : "application/json"}
