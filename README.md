@@ -1,6 +1,6 @@
 # Mobile Devices WebApp
 
-Mobile Devices WebApp is  has been developed for the technical assessment of Precept Health, NZ, which develops and sells Medical Device Integration and Clinical Applications for hospital use.
+Mobile Devices WebApp is developed for the technical assessment of Precept Health, NZ, which develops and sells Medical Device Integration and Clinical Applications for hospital use.
 
 ## Technologies
 1) Vue.js 3.2.37
@@ -57,7 +57,7 @@ Here resides the file main-api.js where my main URL of the api exists. Every oth
 
 2) components
 
-Components have to vue files, Modal.vue and Nav.vue. Modal.vue component are used in views to access Modal for editing data and Nav.vue is used in App.vue globally to access Nav bar which is stylized with Bootstrap v5.0
+Components has two vue files, Modal.vue and Nav.vue. Modal.vue component are used in views to access Modal for editing data and Nav.vue is used in App.vue globally to access Nav bar which is stylized with Bootstrap v5.0
 
 3) router
 
