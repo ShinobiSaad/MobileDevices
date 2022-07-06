@@ -8,7 +8,7 @@ Mobile Devices WebApp is developed for the technical assessment of Precept Healt
 3) Lang: Javascript
 4) CSS: Bootstrap v5.0
 
-All the development was tested on both Firefox and Google Chrome
+All the development is tested on both Firefox and Google Chrome
 
 ## Project setup
 ```
