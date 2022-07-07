@@ -60,7 +60,46 @@ const user = {
       }
     },
   },
-} 
+},
+
+const mobileDevice = {
+  namespaced : true,
+  state: {
+    mobileDevice: [],
+    bearer_token: localStorage.getItem('bearer_token') || null,
+  },
+  getters: {
+    getMobileDevices: (state) => state.mobileDevice
+  },
+  actions: {
+
+    async getMobileDevice({ commit }) {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('bearer_token')}`
+      try {
+      const url = URL_OF_API
+      await axios.get( url + 'model', 
+          { 
+              headers: {"Content-type" : "application/json"}
+  
+          }).then(response => {
+            commit('SET_DEVICE', response.data)
+              // this.mobileDevice = response.data 
+              // this.mobileDevice = this.mobileDevice.slice(1,100)
+          })
+          console.log('All the mobile devices = ', this.mobileDevice)
+      } catch (err) {
+          console.log(err)
+      }
+      this.page = Math.ceil(this.mobileDevice.length/this.pageN)
+      await this.Pagination();
+      },    
+  },
+  mutations: {
+    SET_DEVICE(state, mobileDevice) {
+      state.mobileDevice = mobileDevice
+    }
+  }
+}
 
 
 export default createStore({
@@ -68,5 +107,5 @@ export default createStore({
   state: {},
   mutations: {},
   actions: {},
-  modules: { user }
+  modules: { user, mobileDevice }
 })
