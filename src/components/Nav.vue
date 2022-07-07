@@ -63,7 +63,7 @@ export default {
       console.log(typeof(this.token))
     },
     async login() {
-      this.$store.dispatch('logoutUser')
+      this.$store.dispatch('user/logoutUser')
     }
   }
 }

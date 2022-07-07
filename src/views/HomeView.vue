@@ -53,7 +53,7 @@ export default {
   },
   methods: {
      async fireSubmit(){
-      this.$store.dispatch('loginUser', this.user)
+      this.$store.dispatch('user/loginUser', this.user)
 
 
       // try {
@@ -84,7 +84,7 @@ export default {
   },
 
   beforeMount(){
-    this.$store.dispatch('checkUser')
+    this.$store.dispatch('user/checkUser')
   }
 };
 </script>

@@ -147,7 +147,7 @@
 import { URL_OF_API } from '../api/main-api.js'
 import axios from "axios"
 import Modal from "@/components/Modal.vue";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 export default {
   name: "Home",
@@ -212,21 +212,28 @@ export default {
         }
     },
     async getMobileDevice() {
-    try {
-    const url = URL_OF_API
-    await axios.get( url + 'model', 
-        { 
-            headers: {"Content-type" : "application/json"}
-
-        }).then(response => {
-            this.mobileDevice = response.data 
-            // this.mobileDevice = this.mobileDevice.slice(1,100)
+        this.$store.dispatch('mobileDevice/getMobileDevice')
+        const mobileDevices = computed(() => {
+            return store.state.mobileDevice
         })
-        console.log('All the mobile devices = ', this.mobileDevice)
-    } catch (err) {
-        console.log(err)
-    }
-    this.page = Math.ceil(this.mobileDevice.length/this.pageN)
+
+
+    
+    // try {
+    // const url = URL_OF_API
+    // await axios.get( url + 'model', 
+    //     { 
+    //         headers: {"Content-type" : "application/json"}
+
+    //     }).then(response => {
+    //         this.mobileDevice = response.data 
+    //         // this.mobileDevice = this.mobileDevice.slice(1,100)
+    //     })
+    //     console.log('All the mobile devices = ', this.mobileDevice)
+    // } catch (err) {
+    //     console.log(err)
+    // }
+    this.page = Math.ceil(this.mobileDevices.length/this.pageN)
     await this.Pagination();
     },
     async takeAction(id, name, brand, created) {

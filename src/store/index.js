@@ -1,8 +1,9 @@
-import { createStore } from 'vuex'
+import { createStore, createLogger } from 'vuex'
 import { URL_OF_API } from '../api/main-api.js'
 import axios from 'axios'
 
-export default createStore({
+const user = {
+  namespaced: true,
   state: {
     user: {},
     bearer_token: localStorage.getItem('bearer_token') || null,
@@ -59,6 +60,13 @@ export default createStore({
       }
     },
   },
-  modules: {
-  }
+} 
+
+
+export default createStore({
+  plugins: [createLogger()],
+  state: {},
+  mutations: {},
+  actions: {},
+  modules: { user }
 })
